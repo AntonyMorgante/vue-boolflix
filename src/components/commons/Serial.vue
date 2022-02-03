@@ -1,30 +1,29 @@
 <template>
-  <li>
-    <div>
-        <img class="poster" :src="getPoster(poster)" alt="">
+  <li class="poster" :style='{ backgroundImage: `url("${getPoster(poster)}")`}'>
+    <div class="hover-details">
+      <p>
+        <span class="boldtext">Titolo:</span>{{title}}   
+      </p>
+      <p>
+        <span class="boldtext">Titolo originale:</span> {{originalTitle}}
+      </p>
+      <p>
+        <span class="boldtext">Lingua:</span> <img class="flag" :src="setFlag(lang)" alt="">
+      </p>
+      <p>
+        <span class="boldtext">Voto:</span> 
+        <img
+        v-for="star in getRating(rating)" 
+        :key=star
+        class="star"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Orange_star.svg/300px-Orange_star.svg.png" alt="">
+        <img 
+        v-for="star in getEmptyStars(rating)"
+        :key="star"
+        class="star"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Star_empty.svg/108px-Star_empty.svg.png" alt="">
+      </p>
     </div>
-    <p>
-      <span class="boldtext">Titolo:</span>{{title}}   
-    </p>
-    <p>
-      <span class="boldtext">Titolo originale:</span> {{originalTitle}}
-    </p>
-    <p>
-      <span class="boldtext">Lingua:</span> <img class="flag" :src="setFlag(lang)" alt="">
-    </p>
-    <p>
-      <span class="boldtext">Voto:</span> 
-      <img
-      v-for="star in getRating(rating)" 
-      :key=star
-      class="star"
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Orange_star.svg/300px-Orange_star.svg.png" alt="">
-      <img 
-      v-for="star in getEmptyStars(rating)"
-      :key="star"
-      class="star"
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Star_empty.svg/108px-Star_empty.svg.png" alt="">
-    </p>
   </li>
 </template>
 
@@ -50,11 +49,14 @@ export default {
         return "https://upload.wikimedia.org/wikipedia/commons/9/9e/600px_Grey_HEX-DADADA_with_White_question_mark.svg"
       }
     },
-    getPoster(poster){
-        return ("https://image.tmdb.org/t/p/w342/" + poster);
+    getPoster(path){
+      if (path == null){
+        return ("https://fireteller.com/wp-content/uploads/2020/09/Poster_Not_Available2.jpg")
+      }
+      return ("https://image.tmdb.org/t/p/w342/" + path);
     },
     getRating(rating){
-      return Math.floor(1+(rating/2));
+      return Math.ceil(rating/2);
     },
     getEmptyStars(rating){
       let n = this.getRating(rating);
@@ -67,16 +69,7 @@ export default {
 <style>
   li{
     flex-basis: calc(100% / 5);
-    margin: 20px;
-    border: 1px solid black;
-    background-color: white;
   }
-
-  p,
-  div{
-    padding: 10px 30px;
-  }
-
 
   .boldtext{
     font-weight: bold;
@@ -84,16 +77,12 @@ export default {
   }
 
   .poster{
-    width:100%;
-    height: 430px;
-  }
-
-  .flag{
-    height:15px;
-    width: 20px;
+    background-size: cover;
+    height:500px;
+    color:white;
   }
 
   .star{
-    width:15px;
+    width:20px;
   }
 </style>
