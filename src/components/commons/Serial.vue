@@ -2,7 +2,7 @@
   <li>
     <div>
         <img class="poster" :src="getPoster(poster)" alt="">
-    </div>    
+    </div>
     <p>
       <span class="boldtext">Titolo:</span>{{title}}   
     </p>
@@ -18,7 +18,7 @@
       v-for="star in getRating(rating)" 
       :key=star
       class="star"
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Orange_star.svg/300px-Orange_star.svg.png" alt="">      
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Orange_star.svg/300px-Orange_star.svg.png" alt="">
       <img 
       v-for="star in getEmptyStars(rating)"
       :key="star"
@@ -27,6 +27,8 @@
     </p>
   </li>
 </template>
+
+
 
 <script>
 export default {
@@ -48,16 +50,16 @@ export default {
         return "https://upload.wikimedia.org/wikipedia/commons/9/9e/600px_Grey_HEX-DADADA_with_White_question_mark.svg"
       }
     },
-    getPoster(path){
-        return ("https://image.tmdb.org/t/p/w342/" + path);
+    getPoster(poster){
+        return ("https://image.tmdb.org/t/p/w342/" + poster);
     },
     getRating(rating){
-      return Math.round(rating/2);
+      return Math.floor(1+(rating/2));
     },
     getEmptyStars(rating){
       let n = this.getRating(rating);
       return (5 - n);
-    }        
+    }
   }
 }
 </script>
@@ -74,6 +76,8 @@ export default {
   div{
     padding: 10px 30px;
   }
+
+
   .boldtext{
     font-weight: bold;
     padding-right: 2px;
@@ -87,5 +91,9 @@ export default {
   .flag{
     height:15px;
     width: 20px;
+  }
+
+  .star{
+    width:15px;
   }
 </style>

@@ -8,7 +8,16 @@
       :originalTitle=film.original_title
       :lang=film.original_language
       :rating=film.vote_average
+      :poster=film.poster_path
       />
+      <Serial v-for="(serial,index) in filteredSeries" 
+      :key="index"
+      :title=serial.name
+      :originalTitle=serial.original_name
+      :lang=serial.original_language
+      :rating=serial.vote_average
+      :poster=serial.poster_path
+      />      
     </ul>
   </section>
 
@@ -17,25 +26,28 @@
 <script>
 import SearchBar from "../commons/SearchBar.vue";
 import Movie from "../commons/Movie.vue";
+import Serial from "../commons/Serial.vue";
 import axios from "axios";
 
 export default {
     name:"MovieList",
     data(){
       return{
-        apiURL: "https://api.themoviedb.org/3/search/movie",
+        apiURL: "https://api.themoviedb.org/3/search/",
         films: [],
-        input:"0"
+        series: [],
+        input:""
       }
     },
     components:{
       SearchBar,
-      Movie
+      Movie,
+      Serial
     },
     methods:{
       getFilmList: function(){
         axios
-          .get(this.apiURL, {
+          .get((this.apiURL+"movie"), {
             params: {
               api_key: "e99307154c6dfb0b4750f6603256716d",
               query : this.input
@@ -48,18 +60,35 @@ export default {
             console.log(error)
           });
       },
+      getSeriesList: function(){
+        axios
+          .get((this.apiURL+"tv"), {
+            params: {
+              api_key: "e99307154c6dfb0b4750f6603256716d",
+              query : this.input
+            }
+          })
+          .then((seriesList) => {
+            this.series = seriesList.data.results;
+          })
+          .catch(function(error){
+            console.log(error)
+          });
+      },      
       filterCatalog: function(searchInput){
         this.input = searchInput;
         this.getFilmList();
+        this.getSeriesList();
       }      
-    },
-    created(){
-      this.getFilmList();
     },
     computed: {
         filteredFilms(){
           return this.films;
+        },
+        filteredSeries(){
+          return this.series;
         }
+
     }
 }
 </script>
