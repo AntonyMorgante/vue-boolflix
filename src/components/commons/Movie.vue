@@ -14,14 +14,14 @@
         <span class="boldtext">Voto:</span> 
         <img
         v-for="star in getRating(rating)" 
-        :key=star
+        :key="star"
         class="star"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Orange_star.svg/300px-Orange_star.svg.png" alt="">      
+        src="../../assets/orangestar.png" alt="">      
         <img 
         v-for="star in getEmptyStars(rating)"
         :key="star"
         class="star"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Star_empty.svg/108px-Star_empty.svg.png" alt="">
+        src="../../assets/greystar.png" alt="">
       </p>
     </div>
   </li>
@@ -39,17 +39,17 @@ export default {
   },
   methods:{
     setFlag: function(lang){
-      if (lang == "it"){
-        return "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg"
-      } else if (lang == "en"){
-        return "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
-      } else {
-        return "https://upload.wikimedia.org/wikipedia/commons/9/9e/600px_Grey_HEX-DADADA_with_White_question_mark.svg"
+      let langArray = ["en","it"]
+      if (langArray.includes(lang)){
+        return require("../../assets/" + lang + ".svg")
+      } 
+      else {
+        return require("../../assets/elselang.svg")
       }
     },
     getPoster(path){
       if (path == null){
-        return ("https://fireteller.com/wp-content/uploads/2020/09/Poster_Not_Available2.jpg")
+        return require("../../assets/noposter.jpg")
       }
       return ("https://image.tmdb.org/t/p/w342/" + path);
     },
