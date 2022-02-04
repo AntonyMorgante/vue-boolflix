@@ -1,11 +1,11 @@
 <template>
-    <section id="search-bar">
+    <div id="search-bar">
         <input type="text"
         placeholder="Cerca un film" 
         v-model="searchInput"
-        @keyup.enter="$emit(`searchFilms`,searchInput)">
-        <button @click="$emit(`searchFilms`,searchInput)">Cerca</button>
-    </section>
+        @keyup.enter="searchFilms">
+        <button @click="searchFilms">Cerca</button>
+    </div>
 </template>
 
 <script>
@@ -17,8 +17,8 @@ export default {
         }
     },
     methods:{
-        searchFilms: function(){
-            this.$emit('searchFilms',this.searchInput);
+        searchFilms: function(){  
+            this.$parent.$emit('searchFilms',this.searchInput);
         }
     }
 }
@@ -26,10 +26,7 @@ export default {
 
 <style>
     #search-bar{
-        text-align: center;
-    }
-
-    input{
-        margin-right: 10px;
+        float:right;
+        padding:30px 0;
     }
 </style>

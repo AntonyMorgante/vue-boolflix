@@ -65,20 +65,13 @@ export default {
 </script>
 
 <style>
-  li{
-    flex-basis: calc(100% / 5);
-    margin: 20px;
-  }
-
-  p{
-    padding: 10px 30px;
-  }
 
   .hover-details{
     display: none;
     width:100%;
     height:100%;
     background-color: rgba(0,0,0,0.8);
+    font-size:15px;
   }
 
   li:hover .hover-details{
@@ -90,15 +83,27 @@ export default {
     padding-right: 2px;
   }
 
-  .poster{
-    color:white;
-    height:500px;
-    background-size: cover;  
-    font-size:20px;
+  .flag{
+    height:10px;
+    width: 15px;
   }
 
-  .flag{
-    height:18px;
-    width: 25px;
+    li{
+    flex-basis: 171px;
+    margin:10px;
+  }
+
+  p{
+    padding:0 10px;
+  }
+
+  .poster{
+    background-size: cover;
+    color:white;
+    height:250px;
+  }
+
+  .star{
+    width:15px;
   }
 </style>
